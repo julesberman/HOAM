@@ -1,1 +1,0 @@
-/home/jmb1174/.bashrc
