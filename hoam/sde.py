@@ -2,14 +2,14 @@
 import jax
 import jax.numpy as jnp
 import random
-from functools import partial
 
 import jax.numpy as jnp
 import jax.random
 from diffrax import (Euler, MultiTerm, ODETerm, SaveAt,
                      VirtualBrownianTree, ControlTerm,
                      diffeqsolve)
-from jax import jit, vmap
+from jax import jit, vmap, jacrev
+from einops import rearrange
 import lineax
 
 def solve_sde(drift, diffusion, t_eval, get_ic, n_samples, dt=1e-2, key=None):
@@ -46,3 +46,20 @@ def solve_sde_ic(y0, key, t_eval, dt, drift, diffusion):
     return sol.ys
 
 
+def solve_test_sde(s_fn, params, ics, t_int, dt, epsilon, mu, key):
+    s_dx = jacrev(s_fn, 1)
+
+    def drift(t, y, *args):
+        t = jnp.asarray([t])
+        f = jnp.squeeze(s_dx(mu, y, t, params))
+        return f
+
+    def diffusion(t, y, *args):
+        return epsilon * jnp.ones_like(y)
+
+    keys = jax.random.split(key, num=len(ics))
+    test_sol = vmap(solve_sde_ic, (0, 0, None, None, None, None))(
+        ics, keys, t_int, dt, drift, diffusion)
+    test_sol = rearrange(test_sol, 'N T D -> T N D')
+
+    return test_sol
