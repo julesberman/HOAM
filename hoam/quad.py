@@ -4,7 +4,7 @@ import jax.numpy as jnp
 import numpy as np
 from scipy.special import roots_legendre
 
-def get_simpsons(N):
+def get_simpson_quadrature(N):
     if (N - 1) % 2 != 0:
         raise ValueError("Number of intervals N - 1 must be even for Simpson's rule (N must be odd).")
 
@@ -29,8 +29,10 @@ def get_simpsons(N):
 
     return points, weights
 
-def gauss_quadrature_weights_points(n, a=0, b=1):
+def get_gauss_quadrature(n, a=0, b=1):
     points, weights = roots_legendre(n)
     points = 0.5 * (points + 1) * (b - a) + a
     weights = weights * 0.5 * (b - a)
+    points = jnp.asarray(points)
+    weights = jnp.asarray(weights)
     return points, weights

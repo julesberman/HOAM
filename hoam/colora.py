@@ -15,7 +15,7 @@ def build_colora(
     u_dim: int,
     lora_filter: List[str] = ['alpha'],
     rank: int = 1,
-    full: bool = False,
+    full: bool = True,
     key: Any = None
 ):
     """Function to set up the full CoLoRA architecture both the hypernetwork given by h and the reduce model given by u_hat

@@ -96,3 +96,31 @@ def interplate_in_t(sols, true_t, interp_t):
 
     interp_sols = rearrange(interp_sols, '(T N D) -> T N D', N=N, D=D)
     return interp_sols
+
+def normalize_data(x, axis=None, method='std'):
+    if method == '01':
+        mm, mx = x.min(axis=axis, keepdims=True), x.max(
+            axis=axis, keepdims=True)
+        shift, scale = mm, (mx-mm)
+    else:
+        shift, scale = np.mean(x, axis=axis, keepdims=True),  np.std(
+            x, axis=axis, keepdims=True)
+
+    x = (x - shift) / scale
+    
+    def unnormalize_fn(data):
+        return (data * scale) + shift
+    
+    return x, unnormalize_fn
+    
+    
+def get_hist_single(frame, nx):
+    frame = frame.T
+    H, x, y = jnp.histogram2d(
+        frame[0], frame[1], bins=nx, range=[[0, 1], [0, 1]])
+    H = jnp.rot90(H)
+    return H
+
+
+def get_hist_over_time(frame, nx=100):
+    return vmap(get_hist_single, (0, None))(frame, nx)
