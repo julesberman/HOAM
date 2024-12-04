@@ -46,21 +46,35 @@ Each of these notebooks should be easily runnable from top to bottom in order to
 The Vlasov equation describes the motion of collisionless charged particles under the influence of an electric
 field. We compare HOAM to ground truth:
 
-<span>
-<img src="./img/vlasov_true.gif" width="250" height="200" />
-<img src="./img/vlasov_hoam.gif" width="250" height="200" />
-<img src="./img/vlasov_am.gif" width="250" height="200" />
+<span style="display: block; text-align: center; margin: 10px 0;">
+  <img src="./img/vlasov_true.gif" width="250" height="200" style="display: inline-block;" />
+  <img src="./img/vlasov_hoam.gif" width="250" height="200" style="display: inline-block;" />
+  <img src="./img/vlasov_am.gif" width="250" height="200" style="display: inline-block;" />
 </span>
-<!-- 
-<span>
-<img src="./img/osc_am.gif" width="400" height="320" />
-<img src="./img/osc_gauss.gif" width="400" height="320" />
-</span> -->
+<span style="display: block; text-align: center; margin: 10px 0;">
+  <img src="./img/6dvlasov.gif" width="700" height="400" style="display: inline-block;" />
+</span>
+<span style="display: block; text-align: center; margin: 10px 0;">
+  <img src="./img/lz9.gif" width="450" height="600" style="display: inline-block;" />
+</span>
 
 <br>
 
 ## Cite
 [Parametric model reduction of mean-field and stochastic systems via higher-order action matching](https://arxiv.org/abs/2410.12000)
+
+Bibtex:
+```
+@inproceedings{
+    berman2024parametric,
+    title={Parametric model reduction of mean-field and stochastic systems via higher-order action matching},
+    author={Jules Berman and Tobias Blickhan and Benjamin Peherstorfer},
+    booktitle={The Thirty-eighth Annual Conference on Neural Information Processing Systems},
+    year={2024},
+    url={https://openreview.net/forum?id=qyaz3XP0FN}
+}
+```
+
 
 [Neurips 2024 Poster](https://neurips.cc/virtual/2024/poster/93463)
 
